@@ -1,8 +1,10 @@
 import {
   FC,
-  useContext
 } from "react";
-import {cartContext} from "../../context/cartContext.ts";
+import {addItem} from "../../features/cart/cartSlice.ts";
+import {
+  useAppDispatch,
+} from "../../hooks/useSelector.ts";
 
 interface CardProps {
   name: string;
@@ -10,10 +12,10 @@ interface CardProps {
 }
 
 const Card: FC<CardProps> = ({ name, price }) => {
-  const { addItem } = useContext(cartContext);
+  const dispatch = useAppDispatch();
   
   const handleAddToCart = () => {
-    addItem({ name, price, stock: 1 });
+    dispatch(addItem({name, price, stock: 1}));
   }
   
   return (

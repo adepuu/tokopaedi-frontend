@@ -1,13 +1,14 @@
 import { createRoot } from 'react-dom/client'
 import './index.css'
+import {Provider} from "react-redux";
 import {BrowserRouter} from "react-router-dom";
-import CartProvider from "./context/CartProvider.tsx";
-import Router from "./Router.tsx";
+import Router from "./Router";
+import {store} from "./store";
 
 createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
-    <CartProvider>
+    <Provider store={store}>
       <Router />
-    </CartProvider>
+    </Provider>
   </BrowserRouter>
 )
