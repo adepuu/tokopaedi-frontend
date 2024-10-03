@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
   FC,
   useEffect,
@@ -15,16 +16,14 @@ const Home: FC = () => {
     const fetchData = async () => {
       try {
         // Fetch the data from an API Endpoint and wait until request is done
-        const resp = await fetch("http://localhost:8080/products");
+       const { data } = await axios.get("http://localhost:8080/products");
         // When request is done, parse the JSON data as Product[] and set the state
-        const data = await resp.json() as Product[];
-        setProducts(data);
+        setProducts(data as Product[]);
       } catch (err) {
         console.error(err)
       }
     }
     fetchData();
-    console.log("Fetch data callled")
   }, []);
   
   return (
