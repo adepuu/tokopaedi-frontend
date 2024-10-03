@@ -1,35 +1,34 @@
-import axios from "axios";
 import {
   FC,
   useEffect,
-  useState
 } from "react";
 import Card from "../component/Card";
 import CheckoutCta from "../component/CheckoutCta";
 import Header from "../component/Header";
-import {Product} from "../types/product";
+import {fetchProducts} from "../features/product/productSlice.ts";
+import {
+  useAppDispatch,
+  useAppSelector
+} from "../hooks/useSelector";
 
 const Home: FC = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+  const dispatch = useAppDispatch();
+  const { items, error, status } = useAppSelector(state => state.products)
   
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Fetch the data from an API Endpoint and wait until request is done
-       const { data } = await axios.get("http://localhost:8080/products");
-        // When request is done, parse the JSON data as Product[] and set the state
-        setProducts(data as Product[]);
-      } catch (err) {
-        console.error(err)
-      }
+    if (status === "idle") {
+      dispatch(fetchProducts());
     }
-    fetchData();
-  }, []);
+  }, [dispatch, status]);
+  
+  console.log(status, error)
   
   return (
     <div className="grid grid-cols-2 gap-4 px-4 pt-20 relative">
       <Header />
-      {products.map((product, index) => (
+      {status === "loading" && <div>Loading...</div>}
+      {status === "failed" && <div>Something Wrong Happened, {error}</div>}
+      {status === "succeeded" && items.map((product, index) => (
         <Card key={index} {...product} />
       ))}
       <CheckoutCta />

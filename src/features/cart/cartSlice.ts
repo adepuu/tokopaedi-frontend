@@ -2,7 +2,8 @@ import {
   createSlice,
   PayloadAction
 } from "@reduxjs/toolkit";
-import {calculateTotal} from "../../utils/cart.ts";
+import { Product } from "../../types/product";
+import { calculateTotal } from "../../utils/cart.ts";
 
 const initialState: Cart = {
   items: [],
