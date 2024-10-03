@@ -4,7 +4,7 @@ export interface Product {
   name: string
   category: string
   imageUrl: string
-  metadata: Metadata
+  metadata?: Metadata
   id: string
 }
 

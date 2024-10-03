@@ -7,7 +7,7 @@ import axios from "axios";
 import {Product} from "../../types/product";
 
 export const fetchProducts = createAsyncThunk("products/fetchProducts", async () => {
-  const { data, status } = await axios.get("http://localhost:8080/products");
+  const { data, status } = await axios.get("http://localhost:8081/products");
   if (status !== 200) {
     throw new Error("Failed to fetch products");
   }
